@@ -65,7 +65,10 @@ fun Spinner(
     }
 }
 
-@Preview
+@Preview(
+    showBackground = true,
+    backgroundColor = 0xFF0000000
+)
 @Composable
 fun SpinnerPreview() {
     Spinner(modifier = Modifier.size(64.dp))

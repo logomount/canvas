@@ -38,7 +38,7 @@ const val SVG_PATH = "m0,205.49825l216.31496,0l66.84299,-205.49825l66.84302,205.
 fun PathAnimation() {
     val infiniteTransition = rememberInfiniteTransition(label = "infinite_transition")
     val pathProgress by infiniteTransition.animateFloat(
-        initialValue = if (LocalInspectionMode.current) 0f else 0f,
+        initialValue = if (LocalInspectionMode.current) 1f else 0f,
         targetValue = 1f,
         animationSpec = infiniteRepeatable(
             animation = tween(
@@ -55,8 +55,7 @@ fun PathAnimation() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .aspectRatio(1f)
-            .background(Color.White),
+            .aspectRatio(1f),
         contentAlignment = Alignment.Center
     ) {
         Canvas(modifier = Modifier.size(size)) {
