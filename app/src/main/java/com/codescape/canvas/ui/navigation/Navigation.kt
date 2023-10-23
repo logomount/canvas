@@ -39,6 +39,7 @@ import com.codescape.canvas.ui.blendmodes.PieChart
 import com.codescape.canvas.ui.blendmodes.PieSlice
 import com.codescape.canvas.ui.rendereffects.BlurEffectComponent
 import com.codescape.canvas.ui.shaders.SHADER_1
+import com.codescape.canvas.ui.shaders.ShaderBrushGradient
 import com.codescape.canvas.ui.shaders.ShaderComponent
 
 sealed class Screen(
@@ -71,6 +72,10 @@ sealed class Screen(
         route = "blur_effect",
         title = "Blur Effect"
     )
+    data object ShaderBrush: Screen(
+        route = "shader_brush",
+        title = "Shader Brush"
+    )
     data object Shader: Screen(
         route = "shader",
         title = "Shader"
@@ -83,6 +88,7 @@ val allScreens = listOf(
     Screen.BlendModes,
     Screen.DrawWithContent,
     Screen.BlurEffect,
+    Screen.ShaderBrush,
     Screen.Shader
 )
 
@@ -101,6 +107,7 @@ fun Navigation() {
             Screen.Menu.route -> Screen.Menu
             Screen.PathAnimation.route -> Screen.PathAnimation
             Screen.Shader.route -> Screen.Shader
+            Screen.ShaderBrush.route -> Screen.ShaderBrush
             Screen.Transformations.route -> Screen.Transformations
             else -> null
         }
@@ -224,6 +231,14 @@ fun Navigation() {
                     contentAlignment = Alignment.Center
                 ) {
                     BlurEffectComponent()
+                }
+            }
+            composable(route = Screen.ShaderBrush.route) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    ShaderBrushGradient(text = "Click Me")
                 }
             }
             composable(route = Screen.Shader.route) {

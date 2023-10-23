@@ -116,7 +116,7 @@ fun DrawWithContent() {
             )
             Text(
                 text = "Travel",
-                fontSize = 120.sp,
+                fontSize = 100.sp,
                 fontWeight = FontWeight.W900
             )
         }
