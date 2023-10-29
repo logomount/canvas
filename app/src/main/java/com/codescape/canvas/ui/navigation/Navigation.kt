@@ -37,6 +37,7 @@ import com.codescape.canvas.ui.animations.Spinner
 import com.codescape.canvas.ui.blendmodes.DrawWithContent
 import com.codescape.canvas.ui.blendmodes.PieChart
 import com.codescape.canvas.ui.blendmodes.PieSlice
+import com.codescape.canvas.ui.painter.VectorPainter
 import com.codescape.canvas.ui.rendereffects.BlurEffectComponent
 import com.codescape.canvas.ui.shaders.SHADER_1
 import com.codescape.canvas.ui.shaders.ShaderBrushGradient
@@ -85,6 +86,10 @@ sealed class Screen(
         route = "shader",
         title = "Shader"
     )
+    data object VectorPainter: Screen(
+        route = "vector_painter",
+        title = "VectorPainter"
+    )
 }
 
 val allScreens = listOf(
@@ -95,7 +100,8 @@ val allScreens = listOf(
     Screen.TextWithShadow,
     Screen.BlurEffect,
     Screen.ShaderBrush,
-    Screen.Shader
+    Screen.Shader,
+    Screen.VectorPainter
 )
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -116,6 +122,7 @@ fun Navigation() {
             Screen.ShaderBrush.route -> Screen.ShaderBrush
             Screen.Transformations.route -> Screen.Transformations
             Screen.TextWithShadow.route -> Screen.TextWithShadow
+            Screen.VectorPainter.route -> Screen.VectorPainter
             else -> null
         }
     }
@@ -262,6 +269,14 @@ fun Navigation() {
                     contentAlignment = Alignment.Center
                 ) {
                     ShaderComponent(shaderScript = SHADER_1)
+                }
+            }
+            composable(route = Screen.VectorPainter.route) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    VectorPainter(modifier = Modifier.fillMaxSize())
                 }
             }
         }
