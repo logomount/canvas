@@ -43,7 +43,7 @@ fun TextWithShadow(
 ) {
     val infiniteTransition = rememberInfiniteTransition(label = "infinite_transition")
     val offset by infiniteTransition.animateFloat(
-        initialValue = LocalDensity.current.run { -2.dp.toPx() },
+        initialValue = LocalDensity.current.run { -16.dp.toPx() },
         targetValue = LocalDensity.current.run { 0.dp.toPx() },
         animationSpec = infiniteRepeatable(
             animation = tween(

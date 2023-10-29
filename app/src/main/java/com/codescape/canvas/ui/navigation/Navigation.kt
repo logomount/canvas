@@ -115,6 +115,7 @@ fun Navigation() {
             Screen.Shader.route -> Screen.Shader
             Screen.ShaderBrush.route -> Screen.ShaderBrush
             Screen.Transformations.route -> Screen.Transformations
+            Screen.TextWithShadow.route -> Screen.TextWithShadow
             else -> null
         }
     }
