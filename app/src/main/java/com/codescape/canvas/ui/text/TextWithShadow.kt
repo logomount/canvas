@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -34,8 +35,11 @@ import androidx.compose.ui.unit.toSize
 fun TextWithShadow(
     modifier: Modifier = Modifier,
     text: String,
-    textStyle: TextStyle = TextStyle.Default,
-    shadowSize: Dp = 1.dp
+    textStyle: TextStyle = TextStyle.Default.copy(
+        fontSize = 100.sp,
+        fontWeight = FontWeight.W600
+    ),
+    shadowSize: Dp = 8.dp
 ) {
     val infiniteTransition = rememberInfiniteTransition(label = "infinite_transition")
     val offset by infiniteTransition.animateFloat(
@@ -89,10 +93,5 @@ fun TextWithShadow(
 )
 @Composable
 fun TextWithShadowPreview() {
-    TextWithShadow(
-        text = "Text",
-        textStyle = TextStyle.Default.copy(
-            fontSize = 16.sp
-        )
-    )
+    TextWithShadow(text = "Text")
 }

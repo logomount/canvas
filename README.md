@@ -17,11 +17,14 @@ This is an example project for Hidden Powers of Compose Canvas presentation.
 ### 4. Draw With Content
 <img src="screenshots/draw_with_content.gif" alt="Draw With Content" width="200" height="200">
 
-### 5. Blur Effect
+### 5. Text With Shadow
+<img src="screenshots/text_with_shadow.gif" alt="Text With Shadow" width="200" height="200">
+
+### 6. Blur Effect
 <img src="screenshots/blur_effect.png" alt="Blur Effect" width="200" height="200">
 
-### 6. Shader Bursh
+### 7. Shader Bursh
 <img src="screenshots/shader_brush.gif" alt="Shader" width="200" height="200">
 
-### 7. Shader
+### 8. Shader
 <img src="screenshots/shaders.gif" alt="Shader" width="200" height="200">

@@ -41,6 +41,7 @@ import com.codescape.canvas.ui.rendereffects.BlurEffectComponent
 import com.codescape.canvas.ui.shaders.SHADER_1
 import com.codescape.canvas.ui.shaders.ShaderBrushGradient
 import com.codescape.canvas.ui.shaders.ShaderComponent
+import com.codescape.canvas.ui.text.TextWithShadow
 
 sealed class Screen(
     val route: String,
@@ -228,6 +229,14 @@ fun Navigation() {
                     contentAlignment = Alignment.Center
                 ) {
                     DrawWithContent()
+                }
+            }
+            composable(route = Screen.TextWithShadow.route) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    TextWithShadow(text = "Text")
                 }
             }
             composable(route = Screen.BlurEffect.route) {
