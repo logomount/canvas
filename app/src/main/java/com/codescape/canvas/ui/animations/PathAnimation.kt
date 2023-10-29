@@ -36,9 +36,16 @@ const val SVG_PATH = "m0,205.49825l216.31496,0l66.84299,-205.49825l66.84302,205.
 
 @Composable
 fun PathAnimation() {
+
+    // Step 1. Check if the current composition is being inspected (preview mode).
+    val isPreview = LocalInspectionMode.current
+
+    // Step 2. Create infinite transition to play animation infinitely.
     val infiniteTransition = rememberInfiniteTransition(label = "infinite_transition")
+
+    // Step 3. Indefinitely animate float from 0f to 1f. If in preview mode, skip the animation.
     val pathProgress by infiniteTransition.animateFloat(
-        initialValue = if (LocalInspectionMode.current) 1f else 0f,
+        initialValue = if (isPreview) 1f else 0f,
         targetValue = 1f,
         animationSpec = infiniteRepeatable(
             animation = tween(
@@ -49,8 +56,14 @@ fun PathAnimation() {
         ),
         label = "path_progress"
     )
+
+    // Step 4. Read the path from SVG string and create a Path.
     val path = remember { PathParser().parsePathString(pathData = SVG_PATH).toPath() }
+
+    // Step 5. Create PathMeasure.
     val pathMeasure = remember { PathMeasure() }
+
+    // Step 6. Check the size of the Path.
     val size = LocalDensity.current.run { path.getBounds().maxDimension.toDp() }
     Box(
         modifier = Modifier
@@ -59,13 +72,21 @@ fun PathAnimation() {
         contentAlignment = Alignment.Center
     ) {
         Canvas(modifier = Modifier.size(size)) {
+
+            // Step 7. Create a new Path.
             val animatedPath = Path()
+
+            // Step 8. Set Path to PathMeasure.
             pathMeasure.setPath(path, false)
+
+            // Step 9. Get a segment (part) of the path based on the progress of animation.
             pathMeasure.getSegment(
                 0f,
                 pathProgress * pathMeasure.length,
                 animatedPath
             )
+
+            // Step 10. Draw our new animated Path.
             drawPath(
                 path = animatedPath,
                 brush = Brush.linearGradient(listOf(Color.Red, Color.Blue)),

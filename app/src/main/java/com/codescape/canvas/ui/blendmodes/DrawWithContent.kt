@@ -44,7 +44,11 @@ import com.codescape.canvas.R
 
 @Composable
 fun DrawWithContent() {
+
+    // Step 1. Create an infinite transition with desired label
     val infiniteTransition = rememberInfiniteTransition(label = "infinite_transition")
+
+    // Step 2. Animate vertical gradient offset using defined infinite transition
     val gradientOffset by infiniteTransition.animateFloat(
         initialValue = 1f,
         targetValue = 0f,
@@ -57,6 +61,8 @@ fun DrawWithContent() {
         ),
         label = "gradient_progress"
     )
+
+    // Step 3. Animate scale changes for the image
     val imageScale by infiniteTransition.animateFloat(
         initialValue = 1f,
         targetValue = 1.25f,
@@ -68,6 +74,8 @@ fun DrawWithContent() {
         ),
         label = "indicator_scale"
     )
+
+    // Step 4. Create a Linear Gradient Brush with dynamic offsets dependent on the infinite transition
     val brush = remember(gradientOffset) {
         object : ShaderBrush() {
             override fun createShader(size: Size): Shader {
@@ -88,7 +96,11 @@ fun DrawWithContent() {
             }
         }
     }
+
+    // Step 5. Load image resource that will have applied animations and effects
     val image = ImageBitmap.imageResource(id = R.drawable.palms)
+
+    // Step 6. Draw a Box with nested content including the image, gradient effect and design elements
     Box(
         modifier = Modifier
             .graphicsLayer(compositingStrategy = CompositingStrategy.Offscreen)

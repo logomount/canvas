@@ -23,16 +23,19 @@ import com.codescape.canvas.R
 
 @Composable
 fun BlurEffectComponent() {
-    Icons.Default.ArrowBack.root.clipPathData
     Box(
         modifier = Modifier.aspectRatio(1f),
         contentAlignment = Alignment.Center
     ) {
+
+        // Step 1. Add an Image composable to show as background. Force the image to use its original size.
         Image(
             painter = painterResource(id = R.drawable.lines),
             contentScale = FixedScale(1f),
             contentDescription = "Background"
         )
+
+        // Step 2. Add another Image composable to show as a blur card.  Force the image to use its original size.
         Image(
             modifier = Modifier
                 .padding(48.dp)
@@ -41,11 +44,14 @@ fun BlurEffectComponent() {
                     shape = RoundedCornerShape(24.dp)
                 )
                 .graphicsLayer {
+                    // Step 3. Add a blur effect graphic layer. Define horizontal and vertical blur radius.
                     renderEffect = BlurEffect(
                         radiusX = 4.dp.toPx(),
                         radiusY = 4.dp.toPx()
                     )
+                    // Step 4. Set the shape of the graphic layer.
                     shape = RoundedCornerShape(24.dp)
+                    // Step 5. Clip the content to the defined shape.
                     clip = true
                 },
             painter = painterResource(id = R.drawable.lines),

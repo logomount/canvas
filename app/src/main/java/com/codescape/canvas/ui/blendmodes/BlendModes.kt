@@ -36,10 +36,16 @@ fun PieChart(
     dividerWidth: Dp = 24.dp,
     animationDuration: Int = 1000
 ) {
+
+    // Step 1. Check if the current composition is being inspected (preview mode).
     val isPreview = LocalInspectionMode.current
+
+    // Step 2. Remember the animated angles for each slice. If in preview mode, skip the animation.
     val animatedSweepAngles = remember(slices) {
         slices.map { Animatable(if (isPreview) it.size * 360 else 0f) }
     }
+
+    // Step 3. Animate the sweep angles to their final positions when the composition is launched.
     LaunchedEffect(animatedSweepAngles) {
         slices.forEachIndexed { index, slice ->
             animatedSweepAngles[index].animateTo(
@@ -48,13 +54,19 @@ fun PieChart(
             )
         }
     }
+
+    // Step 4. Draw the pie chart on a Canvas, with an aspect ratio of 1:1 (circle).
     Canvas(
         modifier = modifier
             .aspectRatio(1f)
             .graphicsLayer(compositingStrategy = CompositingStrategy.Offscreen)
     ) {
+
+        // Step 5. Calculate the radius of the pie chart (half the minimum dimension of the Canvas).
         val radius = size.minDimension / 2
         var sliceAngle = 0f
+
+        // Step 6. For each slice, draw an arc of the pie chart with the appropriate color and size.
         for ((index, slice) in slices.withIndex()) {
             drawArc(
                 color = slice.color,
@@ -73,6 +85,8 @@ fun PieChart(
             )
             sliceAngle += animatedSweepAngles[index].value
         }
+
+        // Step 7. Draw dividers for each slice to clearly separate them.
         var spacerAngle = 0f
         for (slice in slices) {
             val angleRadian = Math.toRadians(spacerAngle.toDouble())

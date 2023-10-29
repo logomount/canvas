@@ -43,7 +43,10 @@ fun ShaderBrushGradient(
     cornerRadius: Dp = 16.dp,
     text: String
 ) {
+    // Step 1: Create an infinite transition for the gradient rotation.
     val infiniteTransition = rememberInfiniteTransition(label = "infinite_transition")
+
+    // Step 2: Animate the gradient rotation from 0 to 360 degrees.
     val gradientRotation by infiniteTransition.animateFloat(
         initialValue = 0f,
         targetValue = 360f,
@@ -56,6 +59,8 @@ fun ShaderBrushGradient(
         ),
         label = "gradient_rotation"
     )
+
+    // Step 3: Define a LinearGradientShader to rotate the linear gradient.
     val brush = remember(gradientRotation) {
         object : ShaderBrush() {
             override fun createShader(size: Size): Shader {
@@ -83,6 +88,7 @@ fun ShaderBrushGradient(
                     bottom = strokeWidth.toPx() / 2,
                     left = strokeWidth.toPx() / 2
                 ) {
+                    // Step 4. Draw round rectangle with animated gradient brush.
                     drawRoundRect(
                         cornerRadius = CornerRadius(
                             x = cornerRadius.toPx(),

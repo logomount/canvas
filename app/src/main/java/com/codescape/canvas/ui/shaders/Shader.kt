@@ -45,8 +45,13 @@ const val SIMPLE_SHADER =
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 fun ShaderComponent(shaderScript: String) {
+    // Step 1. Create a RuntimeShader.
     val runtimeShader = remember(shaderScript) { RuntimeShader(shaderScript) }
+
+    // Step 2. Create a ShaderBrush from the RuntimeShader.
     val shaderBrush = remember(runtimeShader) { ShaderBrush(runtimeShader) }
+
+    // Step 3. Set an animator to continuously update the time state every second.
     val time by produceState(0f) {
         while (true) {
             withInfiniteAnimationFrameNanos { frameTimeNanos ->
@@ -54,13 +59,15 @@ fun ShaderComponent(shaderScript: String) {
             }
         }
     }
-    var size by remember { mutableStateOf(Size(0f, 0f)) }
+
+    // Step 4. Create a position state to store the position of the touch event.
     var position by remember { mutableStateOf(Offset.Zero) }
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .aspectRatio(1f)
             .pointerInput(Unit) {
+                // Step 5. Add a gesture detector to update the position state on touch events.
                 detectTapGestures {
                     position = Offset(
                         x = it.x,
@@ -69,6 +76,7 @@ fun ShaderComponent(shaderScript: String) {
                 }
             }
             .pointerInput(Unit) {
+                // Step 6. Add a gesture detector to update the position state when drag events occur.
                 detectDragGestures { _, dragAmount ->
                     position = Offset(
                         x = position.x + dragAmount.x,
@@ -76,27 +84,20 @@ fun ShaderComponent(shaderScript: String) {
                     )
                 }
             }
-            .onGloballyPositioned {
-                size = Size(
-                    width = it.size.width.toFloat(),
-                    height = it.size.height.toFloat()
-                )
-            }
+            // Step 7. Update the size state when the component is placed in the Compose hierarchy.
             .drawBehind {
-                drawRect(Color.Black)
-
-                // Set global constants for the Shader
+                // Step 8. Set global constants for the Shader.
                 runtimeShader.setFloatUniform("iResolution", size.width, size.height)
                 runtimeShader.setFloatUniform("iTime", time)
                 runtimeShader.setFloatUniform("iMouse", position.x, position.y)
 
-                // AGSL to GLSL coordinate space transformation matrix
+                // Step 9. Transform the AGSL to GLSL coordinate space.
                 val localMatrix = Matrix()
                 localMatrix.postScale(1.0f, -1.0f)
                 localMatrix.postTranslate(0.0f, size.height)
                 runtimeShader.setLocalMatrix(localMatrix)
 
-                // Draw shader
+                // Step 10. Draw the shader rect.
                 drawRect(brush = shaderBrush)
             }
     )

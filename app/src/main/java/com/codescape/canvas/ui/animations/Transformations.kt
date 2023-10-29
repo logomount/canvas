@@ -27,7 +27,11 @@ fun Spinner(
     sectionLength: Dp = 6.dp,
     sectionWidth: Dp = 6.dp
 ) {
+
+    // Step 1. Create infinite transition to play animation infinitely.
     val infiniteTransition = rememberInfiniteTransition(label = "infinite_transition")
+
+    // Step 2. Establish the initial and final position of angle animation. Animate floatValue from 0f to number of sections.
     val angleAnimation by infiniteTransition.animateFloat(
         initialValue = 0f,
         targetValue = sections.toFloat(),
@@ -40,10 +44,16 @@ fun Spinner(
         label = "angle_animation"
     )
     Canvas(modifier = modifier) {
+
+        // Step 3. Define rotation radius and angle separation for each section.
         val radius = size.height / 2
         val angle = 360f / sections
         val alpha = 1f / sections
+
+        // Step 4. Rotate the animated angle.
         rotate(angleAnimation.roundToInt() * angle) {
+
+            // Step 5. For each section, rotate and draw a line with graduated opacity.
             for (i in 1..sections) {
                 rotate(angle * i) {
                     drawLine(

@@ -41,7 +41,11 @@ fun TextWithShadow(
     ),
     shadowSize: Dp = 8.dp
 ) {
+
+    // Step 1. Create infinite transition to play animation infinitely.
     val infiniteTransition = rememberInfiniteTransition(label = "infinite_transition")
+
+    // Step 2. Animate the offset of the shadow from -16.dp to 0.dp indefinitely.
     val offset by infiniteTransition.animateFloat(
         initialValue = LocalDensity.current.run { -16.dp.toPx() },
         targetValue = LocalDensity.current.run { 0.dp.toPx() },
@@ -54,19 +58,31 @@ fun TextWithShadow(
         ),
         label = "gradient_rotation"
     )
+
+    // Step 3. Create a TextMeasurer to measure text metrics for text layout.
     val textMeasurer = rememberTextMeasurer()
+
+    // Step 4. Measure the text and produce a TextLayoutResult.
     val textLayoutResult = remember(text) {
         textMeasurer.measure(
             text = text,
             style = textStyle
         )
     }
+
+    // Step 5. Determine the size of the Text based on its measured dimensions.
     val textSize = LocalDensity.current.run { textLayoutResult.size.toSize().toDpSize() }
+
+    // Step 6. Create a Canvas to draw the Text.
     Canvas(
         modifier = modifier
             .size(textSize * 2)
     ) {
+
+        // Step 7. Apply a translation transformation to the drawing operations within this block
         translate(top = offset) {
+
+            // Step 8. Draw the Text with the specified layout result, color and shadow
             drawText(
                 textLayoutResult = textLayoutResult,
                 topLeft = Offset(
