@@ -20,5 +20,8 @@ This is an example project for Hidden Powers of Compose Canvas presentation.
 ### 5. Blur Effect
 <img src="screenshots/blur_effect.png" alt="Blur Effect" width="200" height="200">
 
-### 6. Shader
+### 6. Shader Bursh
+<img src="screenshots/shader_brush.gif" alt="Shader" width="200" height="200">
+
+### 7. Shader
 <img src="screenshots/shaders.gif" alt="Shader" width="200" height="200">

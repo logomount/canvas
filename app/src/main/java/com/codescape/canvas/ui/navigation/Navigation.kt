@@ -68,6 +68,10 @@ sealed class Screen(
         route = "draw_with_content",
         title = "Draw With Content"
     )
+    data object TextWithShadow: Screen(
+        route = "text_with_shadow",
+        title = "Text With Shadow"
+    )
     data object BlurEffect: Screen(
         route = "blur_effect",
         title = "Blur Effect"
@@ -87,6 +91,7 @@ val allScreens = listOf(
     Screen.Transformations,
     Screen.BlendModes,
     Screen.DrawWithContent,
+    Screen.TextWithShadow,
     Screen.BlurEffect,
     Screen.ShaderBrush,
     Screen.Shader
