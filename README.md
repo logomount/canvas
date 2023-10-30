@@ -28,3 +28,6 @@ This is an example project for Hidden Powers of Compose Canvas presentation.
 
 ### 8. Shader
 <img src="screenshots/shaders.gif" alt="Shader" width="200" height="200">
+
+### 9. Vector Painter
+<img src="screenshots/vector_painter.gif" alt="Shader" width="200" height="200">

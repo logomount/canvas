@@ -72,6 +72,6 @@ fun VectorPainter(modifier: Modifier = Modifier) {
     backgroundColor = 0xFFFFFFFF
 )
 @Composable
-fun IVectorPainterPreview() {
+fun VectorPainterPreview() {
     VectorPainter(modifier = Modifier.fillMaxSize())
 }
