@@ -1,7 +1,8 @@
 package com.codescape.canvas.ui.animations
 
 import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.VectorConverter
+import androidx.compose.animation.core.animateValue
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.rememberInfiniteTransition
@@ -17,7 +18,6 @@ import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import kotlin.math.roundToInt
 
 @Composable
 fun Spinner(
@@ -31,10 +31,11 @@ fun Spinner(
     // Step 1. Create infinite transition to play animation infinitely.
     val infiniteTransition = rememberInfiniteTransition(label = "infinite_transition")
 
-    // Step 2. Establish the initial and final position of angle animation. Animate floatValue from 0f to number of sections.
-    val angleAnimation by infiniteTransition.animateFloat(
-        initialValue = 0f,
-        targetValue = sections.toFloat(),
+    // Step 2. Establish the initial and final position of offset. Animate Int from 0 to number of sections.
+    val sectionOffset by infiniteTransition.animateValue(
+        initialValue = 0,
+        targetValue = sections,
+        typeConverter = Int.VectorConverter,
         animationSpec = infiniteRepeatable(
             keyframes {
                 durationMillis = 1000
@@ -51,7 +52,7 @@ fun Spinner(
         val alpha = 1f / sections
 
         // Step 4. Rotate the animated angle.
-        rotate(angleAnimation.roundToInt() * angle) {
+        rotate(sectionOffset * angle) {
 
             // Step 5. For each section, rotate and draw a line with graduated opacity.
             for (i in 1..sections) {

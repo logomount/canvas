@@ -1,5 +1,6 @@
 package com.codescape.canvas.ui.blendmodes
 
+import androidx.annotation.FloatRange
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
@@ -24,6 +25,7 @@ import kotlin.math.sin
 
 data class PieSlice(
     val color: Color,
+    @FloatRange(from = 0.0, to = 1.0)
     val size: Float,
     val name: String
 )
